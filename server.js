@@ -1,51 +1,77 @@
-const midi = require('midi');
-// Set up a new output.
-const output = new midi.output();
+// // set up serialport
+// const SerialPort = require('serialport');
+// // set up parsing
+// const Readline = SerialPort.parsers.Readline;
 
-var SerialPort = require('serialport');
-const Readline = SerialPort.parsers.Readline;
-var port = new SerialPort('/dev/tty.usbmodem14121', {
-  baudRate: 9600
-});
-const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
+// // open up port 1
+// var port = new SerialPort('/dev/tty.wchusbserial14114430', {
+//   baudRate: 9600
+// });
+// const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
 
-parser.on('open', onPortOpen);
-parser.on('data', onData);
-parser.on('close', onClose);
-parser.on('error', onError);
+// parser.on('open', onPortOpen);
+// parser.on('data', onData);
+// parser.on('close', onClose);
+// parser.on('error', onError);
 
-function onPortOpen() {
-  console.log('YESSIR THE PORT IS OPEN COS CAPS');
-}
+const PortSetup = require('./ports');
 
-function onData(d) {
-  console.log('data dis, data dat ' + d);
-  output.sendMessage([176, 22, 1]);
-}
+const portOne = new PortSetup('/dev/tty.wchusbserial141110', 'a', 'red');
+portOne.parser.on('open', portOne.onPortOpen);
+portOne.parser.on('data', portOne.onData);
+portOne.parser.on('close', portOne.onClose);
+portOne.parser.on('error', portOne.onError);
 
-function onClose() {
-  port.write(false);
-  console.log('Port is closed, yo');
-}
-function onError() {
-  console.log('something went horribly wrong');
-}
+const portTwo = new PortSetup('/dev/tty.wchusbserial14114430', 'b', 'blue');
+portTwo.parser.on('open', portTwo.onPortOpen);
+portTwo.parser.on('data', portTwo.onData);
+portTwo.parser.on('close', portTwo.onClose);
+portTwo.parser.on('error', portTwo.onError);
 
-// Count the available output ports.
-output.getPortCount();
+const portThree = new PortSetup('/dev/tty.wchusbserial14114440', 'c', 'blue', -1000, 1000);
+portThree.parser.on('open', portThree.onPortOpen);
+portThree.parser.on('data', portThree.onData);
+portThree.parser.on('close', portThree.onClose);
+portThree.parser.on('error', portThree.onError);
 
-// // Get the name of a specified output port.
-// output.getPortName(0);
+const portFour = new PortSetup('/dev/tty.wchusbserial14114420', 'd', 'red');
+portFour.parser.on('open', portFour.onPortOpen);
+portFour.parser.on('data', portFour.onData);
+portFour.parser.on('close', portFour.onClose);
+portFour.parser.on('error', portFour.onError);
 
-// Open the first available output port.
-try {
-  output.openPort(0);
-} catch (error) {
-  output.openVirtualPort('');
-}
+const portFive = new PortSetup('/dev/tty.wchusbserial1411430', 'e', 'red');
+portFive.parser.on('open', portFive.onPortOpen);
+portFive.parser.on('data', portFive.onData);
+portFive.parser.on('close', portFive.onClose);
+portFive.parser.on('error', portFive.onError);
 
-// Send a MIDI message.
-output.sendMessage([176, 22, 1]);
+const portSix = new PortSetup('/dev/tty.wchusbserial1411410', 'f', 'green');
+portSix.parser.on('open', portSix.onPortOpen);
+portSix.parser.on('data', portSix.onData);
+portSix.parser.on('close', portSix.onClose);
+portSix.parser.on('error', portSix.onError);
 
-// Close the port when done.
-output.closePort();
+const portSeven = new PortSetup('/dev/tty.wchusbserial1411420', 'g', 'yellow');
+portSeven.parser.on('open', portSeven.onPortOpen);
+portSeven.parser.on('data', portSeven.onData);
+portSeven.parser.on('close', portSeven.onClose);
+portSeven.parser.on('error', portSeven.onError);
+
+const portEight = new PortSetup('/dev/tty.wchusbserial141144110', 'h', 'yellow');
+portSeven.parser.on('open', portSeven.onPortOpen);
+portSeven.parser.on('data', portSeven.onData);
+portSeven.parser.on('close', portSeven.onClose);
+portSeven.parser.on('error', portSeven.onError);
+
+const portNine = new PortSetup('/dev/tty.wchusbserial141130', 'i', 'yellow');
+portNine.parser.on('open', portNine.onPortOpen);
+portNine.parser.on('data', portNine.onData);
+portNine.parser.on('close', portNine.onClose);
+portNine.parser.on('error', portNine.onError);
+
+const portTen = new PortSetup('/dev/tty.wchusbserial141120', 'j', 'green');
+portTen.parser.on('open', portTen.onPortOpen);
+portTen.parser.on('data', portTen.onData);
+portTen.parser.on('close', portTen.onClose);
+portTen.parser.on('error', portTen.onError);
